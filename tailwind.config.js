@@ -5,7 +5,11 @@ module.exports = {
     "./layout/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      sans: [ 'Poppins', 'sans-serif' ],
+    },
     extend: {},
   },
+  darkMode: 'class',
   plugins: [],
 }
