@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -19,12 +20,13 @@ const Home: NextPage = () => {
             <p>
               Complete portal for all the notes you are ever looking for.
             </p>
-            <button className="py-2 px-5 w-64 bg-indigo-400 text-white rounded-full mt-10">
-              Get Started
-            </button>
+            <Link href="/level">
+              <button className="py-2 px-5 w-64 bg-indigo-400 text-white rounded-full mt-10">
+                Get Started
+              </button>
+            </Link>
         </section>
         <section className="my-10">
-          {/* <h3 className="text-center">Features</h3> */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 my-5">
             <Image src="/editor.png" alt="powerful editor" width="500" height="500" />
             <div className="w-full md:w-1/2">

@@ -19,9 +19,9 @@ const Layout = ({ children }: { children: JSX.Element }) => {
 
   return (
     <div className="bg-white text-black dark:bg-gray-800 dark:text-white">
-      <div className=" w-4/5 mx-auto">
+      <div className="w-4/5 mx-auto">
         <header className="flex justify-between items-center py-10">
-          <span>LOGO</span>
+          <Link href="/">LOGO</Link>
           <Menu className="block md:hidden cursor-pointer" onClick={openNavMenu} />
           <nav className={
             `fixed w-full h-screen ${isNavOpen?'top-0':'-top-full'} left-0 z-10 py-10 
@@ -43,14 +43,16 @@ const Layout = ({ children }: { children: JSX.Element }) => {
                   Login
                 </li>
               </Link>
-              <li className="mr-4 cursor-pointer bg-indigo-400 text-white py-2 px-4">
-                Signup
-              </li>
+              <Link href="/auth/register">
+                <li className="mr-4 cursor-pointer bg-indigo-400 text-white py-2 px-4">
+                  Signup
+                </li>
+              </Link>
             </ul>
           </nav>
         </header>
         <main>{children}</main>
-        <footer className="flex justify-between items-center py-10 w-full">
+        <footer className="flex justify-between items-center flex-col-reverse gap-3 md:flex-row py-10 w-full">
           <span>
             &copy; notetal, 2022
           </span>
