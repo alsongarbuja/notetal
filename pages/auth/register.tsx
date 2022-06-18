@@ -1,9 +1,15 @@
+import Head from "next/head";
 import Link from "next/link";
 import { CustomInput } from "../../components/global/customfields";
 
 const Register = () => {
   return (
     <div className="min-h-screen">
+      <Head>
+        <title>Notetal - register</title>
+        <meta name="description" content="Register in notetal to add notes for everyone" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <h3 className="text-center">Register</h3>
       <div className="w-11/12 md:w-2/6 mx-auto my-5 p-6 rounded-md dark:bg-indigo-200/25 shadow-md">
         <form>

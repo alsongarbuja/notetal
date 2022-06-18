@@ -1,9 +1,15 @@
+import Head from "next/head";
 import Link from "next/link";
 import { CustomInput } from "../../components/global/customfields";
 
 const Login = () => {
   return (
     <div className="min-h-screen">
+      <Head>
+        <title>Notetal - login</title>
+        <meta name="description" content="Login in notetal to continue adding notes" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <h3 className="text-center">Log In</h3>
       <div className="w-11/12 md:w-2/6 mx-auto my-5 p-6 rounded-md dark:bg-indigo-200/25 shadow-md">
         <form>
