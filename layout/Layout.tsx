@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { GitHub, Instagram, Linkedin, Menu, Moon, Search, Twitter, X } from "react-feather";
 
 const Layout = ({ children }: { children: JSX.Element }) => {
   const [isNavOpen, setIsNavOpen] = useState(false)
+  const navigator = useRouter()
 
   const toggleTheme = () => {
     const theme = localStorage.getItem("notetal_theme__mode");
@@ -16,6 +18,11 @@ const Layout = ({ children }: { children: JSX.Element }) => {
   };
 
   const openNavMenu = () => setIsNavOpen(prev => !prev)
+
+  const navigate = (route: string) => {
+    openNavMenu()
+    navigator.push(`/auth/${route}`)
+  }
 
   return (
     <div className="bg-white text-black dark:bg-gray-800 dark:text-white">
@@ -38,16 +45,16 @@ const Layout = ({ children }: { children: JSX.Element }) => {
               <li className="px-2 mr-4 cursor-pointer flex" onClick={toggleTheme}>
                 <Moon /><span className="ml-2 block md:hidden">Dark mode</span>
               </li>
-              <Link href="/auth/login">
+              <button onClick={()=>navigate('login')}>
                 <li className="mr-4 cursor-pointer border border-indigo-400 py-2 px-4">
                   Login
                 </li>
-              </Link>
-              <Link href="/auth/register">
+              </button>
+              <button onClick={()=>navigate('register')}>
                 <li className="mr-4 cursor-pointer bg-indigo-400 text-white py-2 px-4">
                   Signup
                 </li>
-              </Link>
+              </button>
             </ul>
           </nav>
         </header>
