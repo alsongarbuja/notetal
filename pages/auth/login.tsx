@@ -11,17 +11,17 @@ const Login = () => {
           <CustomInput label="Password" type="password" />
           <button className="bg-indigo-400 text-white py-3 w-full mt-5">Log in</button>
         </form>
-        <p className="flex justify-between text-center md:text-right flex-col md:flex-row my-5">
+        <div className="flex justify-between text-center md:text-right flex-col md:flex-row my-5">
             <span></span>
             <div>
                 <p className="mb-2">
-                    Don't have account? <Link href="/auth/register"><span className="text-orange-500 underline cursor-pointer">Create one</span></Link>
+                    Don&apos;t have account? <Link href="/auth/register"><span className="text-orange-500 underline cursor-pointer">Create one</span></Link>
                 </p>
                 <p>
                     <Link href="/auth/login"><span className="text-orange-500 underline cursor-pointer">Forgot Password?</span></Link>
                 </p>
             </div>
-        </p>
+        </div>
         <p className="my-4 text-center">
           {/* <hr />  */}
           or continue with
