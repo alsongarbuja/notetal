@@ -1,18 +1,20 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { GitHub, Instagram, Linkedin, Menu, Moon, Search, Twitter, X } from "react-feather";
+import React, { useEffect, useState } from "react";
+import { GitHub, Instagram, Linkedin, Menu, Moon, Search, Sun, Twitter, X } from "react-feather";
 
 const Layout = ({ children }: { children: JSX.Element }) => {
   const [isNavOpen, setIsNavOpen] = useState(false)
   const navigator = useRouter()
+  const [theme, setTheme] = useState<string | null>("light");
 
   const toggleTheme = () => {
-    const theme = localStorage.getItem("notetal_theme__mode");
     if (theme && theme === "light") {
       localStorage.setItem("notetal_theme__mode", "dark");
+      setTheme("dark")
     } else {
       localStorage.setItem("notetal_theme__mode", "light");
+      setTheme("light")
     }
     document.body.classList.toggle("dark");
   };
@@ -23,6 +25,8 @@ const Layout = ({ children }: { children: JSX.Element }) => {
     openNavMenu()
     navigator.push(`/auth/${route}`)
   }
+
+  useEffect(() => setTheme(localStorage.getItem("notetal_theme__mode")), [])
 
   return (
     <div className="bg-white text-black dark:bg-gray-800 dark:text-white">
@@ -39,19 +43,27 @@ const Layout = ({ children }: { children: JSX.Element }) => {
           }>
             <X className="fixed z-20 right-12 cursor-pointer md:hidden" onClick={openNavMenu} />
             <ul className="h-full flex justify-between items-center flex-col md:flex-row gap-4">
-              <li className="px-2 mr-4 cursor-pointer flex"><GitHub /><span className="ml-2 block md:hidden">Github</span></li>
-              <li className="px-2 mr-4 cursor-pointer flex"><Twitter /><span className="ml-2 block md:hidden">Twitter</span></li>
+              <li className="px-2 mr-4 cursor-pointer">
+                <a href="https://github.com/alson33/notetal" className="flex">
+                  <GitHub /><span className="ml-2 block md:hidden">Github</span>
+                </a>  
+              </li>
+              <li className="px-2 mr-4 cursor-pointer">
+                <a href="https://twitter.com/alsongarbuja" className="flex">
+                  <Twitter /><span className="ml-2 block md:hidden">Twitter</span>
+                </a>
+              </li>
               <li className="px-2 mr-4 cursor-pointer flex"><Search /><span className="ml-2 block md:hidden">Search</span></li>
               <li className="px-2 mr-4 cursor-pointer flex" onClick={toggleTheme}>
-                <Moon /><span className="ml-2 block md:hidden">Dark mode</span>
+                {theme==="dark"?<Moon />:<Sun />}<span className="ml-2 block md:hidden">{theme==="dark"?'Dark':'Light'} mode</span>
               </li>
               <button onClick={()=>navigate('login')}>
-                <li className="mr-4 cursor-pointer border border-indigo-400 py-2 px-4">
+                <li className="mr-4 cursor-pointer border border-indigo-400 rounded-full py-2 px-4">
                   Login
                 </li>
               </button>
               <button onClick={()=>navigate('register')}>
-                <li className="mr-4 cursor-pointer bg-indigo-400 text-white py-2 px-4">
+                <li className="mr-4 cursor-pointer bg-indigo-400 text-white rounded-full py-2 px-6">
                   Signup
                 </li>
               </button>
@@ -68,9 +80,9 @@ const Layout = ({ children }: { children: JSX.Element }) => {
               Contact Us
             </a>
             <ul className="flex gap-3 justify-evenly">  
-              <li><Linkedin className="text-cyan-800 cursor-pointer" /></li>
-              <li><Instagram className="text-red-400 cursor-pointer" /></li>
-              <li><Twitter className="text-blue-400 cursor-pointer" /></li>
+              <a href="https://linkedin.com/in/alsongarbuja"><Linkedin className="text-cyan-800 cursor-pointer" /></a>
+              <a href="https://instagram.com/alsongarbuja"><Instagram className="text-red-400 cursor-pointer" /></a>
+              <a href="http://twitter.com/alsongarbuja"><Twitter className="text-blue-400 cursor-pointer" /></a>
             </ul>
           </div>
         </footer>
