@@ -1,10 +1,11 @@
-// import { useRouter } from "next/router";
 import React, { useState } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
 import { Menu, X } from "react-feather";
 
 const Note = () => {
-//   const router = useRouter();
-//   const { chapter, id } = router.query;
+    const router = useRouter();
+    const { chapter } = router.query;
     const [openSideMenu, setOpenSideMenu] = useState(false)
     const [openTableOfContent, setOpenTableOfContent] = useState(false)
 
@@ -13,7 +14,11 @@ const Note = () => {
 
   return (
     <div className="grid grid-cols-12 gap-2">
-      <div className={`fixed bg-gray-800 top-32 ${openSideMenu?'left-0':'-left-full'} lg:left-0 transition-all px-4 lg:relative lg:top-0 lg:col-span-3 lg:px-1 py-2 h-4/5 overflow-y-scroll`}>
+      <Head>
+        <title>{chapter}</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className={`fixed bg-white dark:bg-gray-800 top-32 ${openSideMenu?'left-0':'-left-full'} lg:left-0 transition-left px-4 lg:relative lg:top-0 lg:col-span-3 lg:px-1 py-2 h-4/5 overflow-y-scroll`}>
         <div className="flex justify-end lg:hidden mb-5">
             <X className="cursor-pointer" onClick={toggleSideMenu} />
         </div>
@@ -25,7 +30,7 @@ const Note = () => {
                         <ul className="pl-4 mb-8">
                             {
                                 sub.chapters.map(ch => (
-                                    <li key={ch.id} className="my-4 cursor-pointer text-gray-300 hover:text-white">{ch.title}</li>
+                                    <li key={ch.id} className="my-4 cursor-pointer text-gray-500 hover:text-black dark:hover:text-white">{ch.title}</li>
                                 ))
                             }
                         </ul>
@@ -49,7 +54,7 @@ const Note = () => {
             Dolor sed deserunt laborum magnam numquam rem odio voluptatum esse molestiae totam delectus, hic repudiandae ad ullam accusamus omnis sapiente magni repellat recusandae necessitatibus non. Ducimus esse voluptas mollitia quo.
         </p>
       </div>
-      <div className={`fixed bg-gray-800 top-32 ${openTableOfContent?'right-0':'-right-full'} lg:right-0 transition-all px-4 w-52 lg:relative lg:top-0 lg:col-span-3 lg:px-1 py-2 h-4/5 overflow-y-scroll`}>
+      <div className={`fixed bg-white dark:bg-gray-800 top-32 ${openTableOfContent?'right-0':'-right-full'} lg:right-0 transition-right px-4 w-52 lg:relative lg:top-0 lg:col-span-3 lg:px-1 py-2 h-4/5 overflow-y-scroll`}>
         <div className="flex lg:hidden mb-5">
             <X className="cursor-pointer" onClick={toggleTableOfContent} />
         </div>
@@ -61,7 +66,7 @@ const Note = () => {
                         <ul className="pl-4 mb-8">
                             {
                                 topic.subTopics.map(st => (
-                                    <li key={st.id} className="my-4 cursor-pointer text-gray-300 hover:text-white">{st.title}</li>
+                                    <li key={st.id} className="my-4 cursor-pointer text-gray-500 hover:text-black dark:hover:text-white">{st.title}</li>
                                 ))
                             }
                         </ul>
