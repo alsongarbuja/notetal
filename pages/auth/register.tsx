@@ -1,8 +1,39 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useState } from "react";
 import { CustomInput } from "../../components/global/customfields";
 
 const Register = () => {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => setUser(prev => ({...prev, [e.target.name]: e.target.value }))
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if(user.password===user.confirmPassword){
+      const data = await fetch("/api/auth/register", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: user.name,
+          email: user.email,
+          password: user.password
+        }),
+      }).then(res => res.json()).catch((err) =>console.error(err))
+  
+      console.log(data);
+    }
+    
+  }
+
   return (
     <div className="min-h-screen">
       <Head>
@@ -12,11 +43,11 @@ const Register = () => {
       </Head>
       <h3 className="text-center">Register</h3>
       <div className="w-11/12 md:w-2/6 mx-auto my-5 p-6 rounded-md dark:bg-indigo-200/25 shadow-md">
-        <form>
-          <CustomInput label="Username" />
-          <CustomInput label="Email" type="email" />
-          <CustomInput label="Password" type="password" />
-          <CustomInput label="Confirm Password" type="password" />
+        <form onSubmit={handleSubmit}>
+          <CustomInput name="name" onChange={handleChange} placeholder="Full name" label="Username" />
+          <CustomInput name="email" onChange={handleChange} placeholder="Email" label="Email" type="email" />
+          <CustomInput name="password" onChange={handleChange} placeholder="Password" label="Password" type="password" />
+          <CustomInput name="confirmPassword" onChange={handleChange} placeholder="Confirm Password" label="Confirm Password" type="password" />
           <button className="bg-indigo-400 text-white py-3 w-full mt-5">Register</button>
         </form>
         <div className="flex justify-between text-center md:text-right flex-col md:flex-row my-5">
