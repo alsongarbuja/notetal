@@ -7,7 +7,11 @@ export const CustomInput = ({
   name,
   placeholder,
   id,
-  onChange
+  value="",
+  onChange,
+  classes="col-span-1",
+  min,
+  max
 }: {
   label: string;
   type?: string;
@@ -15,10 +19,14 @@ export const CustomInput = ({
   id?: string;
   name: string,
   placeholder?: string,
+  value?: string | number,
   onChange: ChangeEventHandler,
+  classes?: string, 
+  min?: number,
+  max?: number,
 }) => {
   return (
-    <div className="mt-2">
+    <div className={`mt-2 ${classes}`}>
       <label htmlFor={id} className="block text-sm font-medium ">
         {label}
       </label>
@@ -27,6 +35,9 @@ export const CustomInput = ({
           id={id}
           name={name}
           type={type}
+          value={value}
+          min={min}
+          max={max}
           autoComplete="email"
           required={isRequired}
           placeholder={placeholder}
