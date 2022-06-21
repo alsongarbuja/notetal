@@ -55,7 +55,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
               </li>
               <li className="px-2 mr-4 cursor-pointer flex"><Search /><span className="ml-2 block md:hidden">Search</span></li>
               <li className="px-2 mr-4 cursor-pointer flex" onClick={toggleTheme}>
-                {theme==="dark"?<Moon />:<Sun />}<span className="ml-2 block md:hidden">{theme==="dark"?'Dark':'Light'} mode</span>
+                {theme==="light"?<Moon />:<Sun />}<span className="ml-2 block md:hidden">{theme==="light"?'Dark':'Light'} mode</span>
               </li>
               <button onClick={()=>navigate('login')}>
                 <li className="mr-4 cursor-pointer border border-indigo-400 rounded-full py-2 px-4">
