@@ -10,7 +10,7 @@ const EditLevel = () => {
         name: "",
         description: "",
         levelHeight: 2,
-        createdBy: process.env.TEST_USER_ID,
+        createdBy: "62aff09d479e0682a353c90f",
       });
     
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -35,7 +35,7 @@ const EditLevel = () => {
         const getLevel = async () => {
             const data = await fetch(`/api/level/${router.query.levelId}`, { method: "GET" }).then(res => res.json()).catch(err => console.error(err))
         
-            if(data.status==='success'){
+            if(data?.status==='success'){
                 setLevel(data.level)
             }else{
                 console.error(data.message);

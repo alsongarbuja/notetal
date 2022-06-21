@@ -7,7 +7,7 @@ const Create = () => {
     name: "",
     description: "",
     levelHeight: 2,
-    createdBy: process.env.TEST_USER_ID,
+    createdBy: "62aff09d479e0682a353c90f"
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -52,6 +52,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         label="Description"
         name="description"
         onChange={handleChange}
+        isRequired={false}
       />
     </Form>
   );
