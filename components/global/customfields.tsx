@@ -3,7 +3,7 @@ import React, { ChangeEventHandler } from "react";
 export const CustomInput = ({
   label,
   type = "text",
-  isRequired = false,
+  isRequired = true,
   name,
   placeholder,
   id,
