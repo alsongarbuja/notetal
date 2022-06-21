@@ -1,15 +1,18 @@
 import Link from 'next/link'
-import { Plus } from 'react-feather'
+import { useRouter } from 'next/router'
+import { ArrowLeft, Plus } from 'react-feather'
 
-const List = ({ headers, children, title }: {
-    headers: string[],
+const List = ({ children, title }: {
     children: JSX.Element,
     title: string, 
 }) => {
+
+    const navigate = useRouter()
+
   return (
     <div className="min-h-screen">
         <div className="flex justify-between items-center mb-6">
-            <h4>{title} you have made</h4>
+            <h4><ArrowLeft className="inline mr-2 cursor-pointer" onClick={()=>navigate.back()} /> {title} you have made</h4>
             <Link href={`/account/${title.toLowerCase()}/create`}>
                 <span className="px-4 py-2 bg-indigo-500 text-white rounded-md cursor-pointer">
                     <Plus className="inline mr-1" /> Add {title}
@@ -17,20 +20,9 @@ const List = ({ headers, children, title }: {
             </Link>
         </div>
         <div className="my-4">
-            <table className="w-full">
-                <thead className="border-b">
-                    <tr>
-                        <th>SN</th>
-                        {
-                            headers.map((header, i) => (
-                                <th key={i}>{header}</th>
-                            ))
-                        }
-                        <th>Actions</th>
-                    </tr>
-                </thead>
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
                 {children}
-            </table>
+            </div>
         </div>
     </div>
   )
