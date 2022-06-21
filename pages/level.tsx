@@ -1,7 +1,8 @@
 import Head from "next/head";
 import LevelBox from "../components/level/LevelBox";
+import { levelType } from "../types/models";
 
-const Level = () => {
+const Level = (props: { levels: levelType[] }) => {
   return (
     <div className="py-5 min-h-screen">
       <Head>
@@ -11,16 +12,25 @@ const Level = () => {
       </Head>
       <h3 className="text-center">Choose note to read</h3>
       <div className="flex flex-wrap gap-4 my-6 justify-center">
-        <LevelBox title="Software Engineering" href="/notes/test/12345" description="Read notes from software engineering syllabus based on PU" />
-        <LevelBox title="Civil Engineering" href="/notes/test/12345" />
-        <LevelBox title="MBBS" href="/notes/test/12345" />
-        <LevelBox title="BBA" href="/notes/test/12345" />
-        <LevelBox title="GIT" href="/notes/test/12345" />
-        <LevelBox title="LAW" href="/notes/test/12345" />
-        <LevelBox title="Lok sewa" href="/notes/test/12345" />
+        {
+          props.levels?.map(level => (
+            <LevelBox key={level._id} title={level.name} href={`/notes/test/1234`} description={level.description} />
+          ))
+        }
       </div>
     </div>
   );
 };
 
 export default Level;
+
+export async function getServerSideProps() {
+  const res = await fetch("http://localhost:3000/api/level", { method: "GET" });
+  const data = await res.json()
+  
+  return {
+    props: {
+      levels: data.levels,
+    }
+  }
+}
