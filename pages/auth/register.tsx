@@ -44,10 +44,10 @@ const Register = () => {
       <h3 className="text-center">Register</h3>
       <div className="w-11/12 md:w-2/6 mx-auto my-5 p-6 rounded-md dark:bg-indigo-200/25 shadow-md">
         <form onSubmit={handleSubmit}>
-          <CustomInput name="name" onChange={handleChange} placeholder="Full name" label="Username" />
-          <CustomInput name="email" onChange={handleChange} placeholder="Email" label="Email" type="email" />
-          <CustomInput name="password" onChange={handleChange} placeholder="Password" label="Password" type="password" />
-          <CustomInput name="confirmPassword" onChange={handleChange} placeholder="Confirm Password" label="Confirm Password" type="password" />
+          <CustomInput name="name" value={user.name} onChange={handleChange} placeholder="Full name" label="Username" />
+          <CustomInput name="email" value={user.email} onChange={handleChange} placeholder="Email" label="Email" type="email" />
+          <CustomInput name="password" value={user.password} onChange={handleChange} placeholder="Password" label="Password" type="password" />
+          <CustomInput name="confirmPassword" value={user.confirmPassword} onChange={handleChange} placeholder="Confirm Password" label="Confirm Password" type="password" />
           <button className="bg-indigo-400 text-white py-3 w-full mt-5">Register</button>
         </form>
         <div className="flex justify-between text-center md:text-right flex-col md:flex-row my-5">

@@ -36,8 +36,8 @@ const Login = () => {
       <h3 className="text-center">Log In</h3>
       <div className="w-11/12 md:w-2/6 mx-auto my-5 p-6 rounded-md dark:bg-indigo-200/25 shadow-md">
         <form onSubmit={handleSubmit}>
-          <CustomInput name="email" placeholder="Email" onChange={handleChange} label="Email" type="email" />
-          <CustomInput name="password" placeholder="Password" onChange={handleChange} label="Password" type="password" />
+          <CustomInput name="email" value={user.email} placeholder="Email" onChange={handleChange} label="Email" type="email" />
+          <CustomInput name="password" value={user.password} placeholder="Password" onChange={handleChange} label="Password" type="password" />
           <button className="bg-indigo-400 text-white py-3 w-full mt-5">Log in</button>
         </form>
         <div className="flex justify-between text-center md:text-right flex-col md:flex-row my-5">
