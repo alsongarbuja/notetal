@@ -5,3 +5,12 @@ export interface levelType {
     description: string,
     levelHeight: number
 }
+
+export interface subLevelType {
+    _id: string,
+    name: string,
+    slug: string,
+    description: string,
+    userId: string,
+    levelId: string,
+}
