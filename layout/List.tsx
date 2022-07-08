@@ -13,7 +13,7 @@ const List = ({ children, title }: {
     <div className="min-h-screen">
         <div className="flex justify-between items-center mb-6">
             <h4><ArrowLeft className="inline mr-2 cursor-pointer" onClick={()=>navigate.back()} /> {title} you have made</h4>
-            <Link href={`/account/${title.toLowerCase()}/create`}>
+            <Link href={`/account/${title.toLowerCase().split(" ").join("")}/create`}>
                 <span className="px-4 py-2 bg-indigo-500 text-white rounded-md cursor-pointer">
                     <Plus className="inline mr-1" /> Add {title}
                 </span>
