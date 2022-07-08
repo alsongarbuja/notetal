@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { Book, Folder, List } from 'react-feather'
+import { Book, Folder, FolderPlus, List } from 'react-feather'
 
 const Dashboard = () => {
   return (
@@ -18,6 +18,17 @@ const Dashboard = () => {
                 <Link href="/account/level">
                     <span className="underline cursor-pointer hover:text-indigo-400">
                         See your levels
+                    </span>
+                </Link>
+            </div>
+            <div className="w-full sm:w-52 border px-5 py-4 rounded-md text-center border-indigo-400 bg-indigo-400/10 dark:text-indigo-200">
+                <h2>4</h2>
+                <h4 className="mb-3 flex gap-2 justify-center">
+                    <FolderPlus /> Sub Levels
+                </h4>
+                <Link href="/account/sublevel">
+                    <span className="underline cursor-pointer hover:text-indigo-400">
+                        See your Sub levels
                     </span>
                 </Link>
             </div>
