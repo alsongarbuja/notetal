@@ -16,6 +16,10 @@ export default async function handler(req: Express.Request, res: Express.Respons
                 const cId = new mongoose.Types.ObjectId(query.createrId as string)
                 
                 levels = await Level.find({ createdBy: cId })
+            }else if(query.height){
+                const height = query.height as unknown as number;
+
+                levels = await Level.find({ levelHeight: height })
             }else{
                 levels = await Level.find({})
             }
