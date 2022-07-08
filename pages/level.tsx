@@ -14,7 +14,7 @@ const Level = (props: { levels: levelType[] }) => {
       <div className="flex flex-wrap gap-4 my-6 justify-center">
         {
           props.levels?.map(level => (
-            <LevelBox key={level._id} title={level.name} href={`/notes/test/1234`} description={level.description} />
+            <LevelBox key={level._id} title={level.name} href={level.levelHeight===2?`/notes/test/1234`:'/sublevel'} description={level.description} />
           ))
         }
       </div>
