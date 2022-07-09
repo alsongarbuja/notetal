@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const SubLevelSchema = new mongoose.Schema({
+const SubTopicSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -15,9 +15,9 @@ const SubLevelSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    levelId: {
+    topicId: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Level',
+        ref: 'Topic',
         required: true,
     },
     createdBy: {
@@ -27,10 +27,10 @@ const SubLevelSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-SubLevelSchema.pre('save', async function (next) {
-    const level = this;
-    level.slug = level.name.toLowerCase().split(" ").join("-")
+SubTopicSchema.pre('save', async function (next) {
+    const subtopic = this;
+    subtopic.slug = subtopic.name.toLowerCase().split(" ").join("-")
     next();
 });
 
-export default mongoose.models.SubLevel || mongoose.model('SubLevel', SubLevelSchema)
+export default mongoose.models.SubTopic || mongoose.model('SubTopic', SubTopicSchema)

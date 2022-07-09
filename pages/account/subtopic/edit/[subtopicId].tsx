@@ -1,70 +1,70 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { CustomInput, CustomSelect } from "../../../../components/global/customfields";
-import { levelType } from "../../../../types/models";
+import { topicType } from "../../../../types/models";
 import Form from "../../../../layout/Form";
 
-const EditLevel = (props: { levels: { name: string, value: string }[] }) => {
+const EditTopic = (props: { topics: { name: string, value: string }[] }) => {
     const router = useRouter();
 
-    const [sublevel, setSublevel] = useState({
+    const [subtopic, setSubtopic] = useState({
         name: "",
         description: "",
-        levelId: "",
+        topicId: "",
         createdBy: "62aff09d479e0682a353c90f",
       });
     
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-        setSublevel((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setSubtopic((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
     
-        const data = await fetch(`/api/sublevel/${router.query.sublevelId}`, {
+        const data = await fetch(`/api/subtopic/${router.query.subtopicId}`, {
             method: "PUT",
             mode: "cors",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(sublevel),
+            body: JSON.stringify(subtopic),
         }).then(res => res.json()).catch(err => console.error(err))
     
         console.log(data);
     }
 
     useEffect(() => {
-        const getLevel = async () => {
-            const data = await fetch(`/api/sublevel/${router.query.sublevelId}`, { method: "GET" }).then(res => res.json()).catch(err => console.error(err))
+        const getSubtopic = async () => {
+            const data = await fetch(`/api/subtopic/${router.query.subtopicId}`, { method: "GET" }).then(res => res.json()).catch(err => console.error(err))
         
             if(data?.status==='success'){
-                setSublevel(data.sublevel)
+                setSubtopic(data.subtopic)
             }else{
                 console.error(data.message);
             }
         }
 
-        getLevel()
+        getSubtopic()
     }, [])
 
   return (
-    <Form title="Sub Level" isEdit={true} handleSubmit={handleSubmit}>
+    <Form title="Sub Topic" isEdit={true} handleSubmit={handleSubmit}>
       <CustomInput
-        value={sublevel.name}
+        value={subtopic.name}
         label="Name"
         name="name"
         onChange={handleChange}
-        placeholder="Name of level, ex: Software Engineering, Git, etc"
+        placeholder="Name of topic, ex: Software Engineering, Git, etc"
       />
       <CustomSelect
-        value={sublevel.levelId}
-        label="Level"
-        name="levelId"
+        value={subtopic.topicId}
+        label="topic"
+        name="topicId"
         onChange={handleChange}
-        placeholder="Select Level"
-        options={props.levels}
+        placeholder="Select topic"
+        options={props.topics}
       />
       <CustomInput
-        value={sublevel.description}
+        value={subtopic.description}
         label="Description"
         name="description"
         onChange={handleChange}
@@ -73,16 +73,16 @@ const EditLevel = (props: { levels: { name: string, value: string }[] }) => {
   );
 };
 
-export default EditLevel;
+export default EditTopic;
 
 export async function getServerSideProps(){
-    const res = await fetch(`http://localhost:3000/api/level?height=3`, { method: "GET" })
+    const res = await fetch(`http://localhost:3000/api/topic?height=3`, { method: "GET" })
     const data = await res.json()
-    const levels: levelType[] = data.levels.map((level: levelType) => ({ name: level.name, value: level._id }))
+    const topics: topicType[] = data.topics.map((topic: topicType) => ({ name: topic.name, value: topic._id }))
 
     return {
         props: {
-            levels: levels,
+            topics: topics,
         }
     }
 }

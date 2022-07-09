@@ -18,7 +18,7 @@ const Home: NextPage = () => {
             <p>
               Complete portal for all the notes you are ever looking for.
             </p>
-            <Link href="/level">
+            <Link href="/topic">
               <button className="py-2 px-5 w-64 bg-indigo-400 text-white rounded-full mt-10">
                 Get Started
               </button>

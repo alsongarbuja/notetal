@@ -1,6 +1,6 @@
 import dbConnect from "../../../lib/server";
 import Express from "express";
-import Level from "../../../models/Level";
+import SubTopic from "../../../models/SubTopic";
 import mongoose from "mongoose";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
@@ -8,20 +8,20 @@ export default async function handler(req: Express.Request, res: Express.Respons
     
     await dbConnect();
     
-    const cId = new mongoose.Types.ObjectId(query.levelId as string)                
-    const level = await Level.findById(cId)
+    const cId = new mongoose.Types.ObjectId(query.subtopicId as string)                
+    const subtopic = await SubTopic.findById(cId)
 
     switch (method) {
         case "GET":            
-            res.status(200).json({ status: "success", level: level })
+            res.status(200).json({ status: "success", subtopic: subtopic })
             break;
         case "PUT":
-            Object.assign(level, req.body);
-            level.save();
-            res.status(200).json({ status: "success", level: level })
+            Object.assign(subtopic, req.body);
+            subtopic.save();
+            res.status(200).json({ status: "success", subtopic: subtopic })
             break;
         case "DELETE":
-            level.delete();
+            subtopic.delete();
             res.status(200).json({ status: "success" })
             break;
         default:

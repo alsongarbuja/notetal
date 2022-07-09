@@ -1,16 +1,16 @@
-export interface levelType {
+export interface topicType {
     _id: string,
     name: string,
     slug: string,
     description: string,
-    levelHeight: number
+    topicHeight: number
 }
 
-export interface subLevelType {
+export interface subTopicType {
     _id: string,
     name: string,
     slug: string,
     description: string,
     userId: string,
-    levelId: string,
+    topicId: string,
 }

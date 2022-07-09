@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const LevelSchema = new mongoose.Schema({
+const TopicSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -15,7 +15,7 @@ const LevelSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    levelHeight: {
+    topicHeight: {
         type: Number,
         enum: [2, 3],
         required: true,
@@ -27,10 +27,10 @@ const LevelSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-LevelSchema.pre('save', async function (next) {
-    const level = this;
-    level.slug = level.name.toLowerCase().split(" ").join("-")
+TopicSchema.pre('save', async function (next) {
+    const topic = this;
+    topic.slug = topic.name.toLowerCase().split(" ").join("-")
     next();
 });
 
-export default mongoose.models.Level || mongoose.model('Level', LevelSchema)
+export default mongoose.models.Topic || mongoose.model('Topic', TopicSchema)

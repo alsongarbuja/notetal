@@ -1,7 +1,7 @@
 import dbConnect from "../../../lib/server";
 import Express from "express";
-import Level from "../../../models/Level";
-import { levelType } from "../../../types/models";
+import Topic from "../../../models/Topic";
+import { topicType } from "../../../types/models";
 import mongoose from "mongoose";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
@@ -11,24 +11,24 @@ export default async function handler(req: Express.Request, res: Express.Respons
 
     switch (method) {
         case "GET":
-            let levels: levelType[];
+            let topics: topicType[];
             if(query.createrId){
                 const cId = new mongoose.Types.ObjectId(query.createrId as string)
                 
-                levels = await Level.find({ createdBy: cId })
+                topics = await Topic.find({ createdBy: cId })
             }else if(query.height){
                 const height = query.height as unknown as number;
 
-                levels = await Level.find({ levelHeight: height })
+                topics = await Topic.find({ topicHeight: height })
             }else{
-                levels = await Level.find({})
+                topics = await Topic.find({})
             }
             
-            res.status(200).json({ status: "success", levels: levels })
+            res.status(200).json({ status: "success", topics: topics })
             break;
         case "POST":
-            const level = await Level.create(req.body);
-            res.status(200).json({ status: "success", level: level })
+            const topic = await Topic.create(req.body);
+            res.status(200).json({ status: "success", topic: topic })
             break;
         default:
             res.status(400).json({ status: "fail", message: "No such method found for this route "})
