@@ -18,3 +18,13 @@ export interface subNotesType {
     notesId: string,
     hasPage: boolean,
 }
+
+// interface for the page model
+export interface pageType {
+    _id: string,
+    name: string,
+    slug: string,
+    description: string,
+    userId: string,
+    subNotesId: string,
+}
