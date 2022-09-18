@@ -15,7 +15,7 @@ const SubNotes = (props: { subnotes: subNotesType[] }) => {
       <div className="flex flex-wrap gap-4 my-6 justify-center">
         {
           props.subnotes?.map(subnote => (
-            <NoteBox key={subnote._id} title={subnote.name} href={`/notes/test/1234`} description={subnote.description} />
+            <NoteBox key={subnote._id} title={subnote.name} href={subnote.hasPage?`/page?subNotesId=${subnote._id}`:`/notes/test/1234`} description={subnote.description} />
           ))
         }
       </div>
