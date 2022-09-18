@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const TopicSchema = new mongoose.Schema({
+const NotesSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -15,10 +15,9 @@ const TopicSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    topicHeight: {
-        type: Number,
-        enum: [2, 3],
-        required: true,
+    hasSubNotes: {
+        type: Boolean,
+        default: false,
     },
     createdBy: {
         type: mongoose.SchemaTypes.ObjectId,
@@ -27,10 +26,10 @@ const TopicSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-TopicSchema.pre('save', async function (next) {
-    const topic = this;
-    topic.slug = topic.name.toLowerCase().split(" ").join("-")
+NotesSchema.pre('save', async function (next) {
+    const notes = this;
+    notes.slug = notes.name.toLowerCase().split(" ").join("-")
     next();
 });
 
-export default mongoose.models.Topic || mongoose.model('Topic', TopicSchema)
+export default mongoose.models.Notes || mongoose.model('Notes', NotesSchema)
