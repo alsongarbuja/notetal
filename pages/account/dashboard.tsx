@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { Book, Folder, FolderPlus, List } from 'react-feather'
+import { Folder, FolderPlus } from 'react-feather'
 
 const Dashboard = () => {
   return (
@@ -13,22 +13,22 @@ const Dashboard = () => {
             <div className="w-full sm:w-52 border px-5 py-4 rounded-md text-center border-indigo-400 bg-indigo-400/10 dark:text-indigo-200">
                 <h2>3</h2>
                 <h4 className="mb-3 flex gap-2 justify-center">
-                    <Folder /> Topics
+                    <Folder /> Notes
                 </h4>
-                <Link href="/account/topic">
+                <Link href="/account/notes">
                     <span className="underline cursor-pointer hover:text-indigo-400">
-                        See your topics
+                        See your notes
                     </span>
                 </Link>
             </div>
             <div className="w-full sm:w-52 border px-5 py-4 rounded-md text-center border-indigo-400 bg-indigo-400/10 dark:text-indigo-200">
                 <h2>6</h2>
                 <h4 className="mb-3 flex gap-2 justify-center">
-                    <FolderPlus /> Sub Topic
+                    <FolderPlus /> Sub Notes
                 </h4>
-                <Link href="/account/subtopic">
+                <Link href="/account/subnotes">
                     <span className="underline cursor-pointer hover:text-indigo-400">
-                        See your Sub topics
+                        See your Sub notes
                     </span>
                 </Link>
             </div>
