@@ -1,7 +1,7 @@
 import dbConnect from "../../../lib/server";
 import Express from "express";
-import SubTopic from "../../../models/SubTopic";
-import { subTopicType } from "../../../types/models";
+import SubNotes from "../../../models/SubNotes";
+import { subNotesType } from "../../../types/models";
 import mongoose from "mongoose";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
@@ -11,20 +11,20 @@ export default async function handler(req: Express.Request, res: Express.Respons
 
     switch (method) {
         case "GET":
-            let subtopics: subTopicType[];
+            let subnotes: subNotesType[];
             if(query.createrId){
                 const cId = new mongoose.Types.ObjectId(query.createrId as string)
                 
-                subtopics = await SubTopic.find({ createdBy: cId })
+                subnotes = await SubNotes.find({ createdBy: cId })
             }else{
-                subtopics = await SubTopic.find({})
+                subnotes = await SubNotes.find({})
             }
             
-            res.status(200).json({ status: "success", subtopics: subtopics })
+            res.status(200).json({ status: "success", subnotes: subnotes })
             break;
         case "POST":
-            const subtopic = await SubTopic.create(req.body);
-            res.status(200).json({ status: "success", subtopic: subtopic })
+            const subnote = await SubNotes.create(req.body);
+            res.status(200).json({ status: "success", subnote: subnote })
             break;
         default:
             res.status(400).json({ status: "fail", message: "No such method found for this route "})

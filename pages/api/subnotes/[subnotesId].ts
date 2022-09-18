@@ -1,6 +1,6 @@
 import dbConnect from "../../../lib/server";
 import Express from "express";
-import SubTopic from "../../../models/SubTopic";
+import SubNotes from "../../../models/SubNotes";
 import mongoose from "mongoose";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
@@ -8,20 +8,20 @@ export default async function handler(req: Express.Request, res: Express.Respons
     
     await dbConnect();
     
-    const cId = new mongoose.Types.ObjectId(query.subtopicId as string)                
-    const subtopic = await SubTopic.findById(cId)
+    const cId = new mongoose.Types.ObjectId(query.subnotesId as string)                
+    const subnote = await SubNotes.findById(cId)
 
     switch (method) {
         case "GET":            
-            res.status(200).json({ status: "success", subtopic: subtopic })
+            res.status(200).json({ status: "success", subnote: subnote })
             break;
         case "PUT":
-            Object.assign(subtopic, req.body);
-            subtopic.save();
-            res.status(200).json({ status: "success", subtopic: subtopic })
+            Object.assign(subnote, req.body);
+            subnote.save();
+            res.status(200).json({ status: "success", subnote: subnote })
             break;
         case "DELETE":
-            subtopic.delete();
+            subnote.delete();
             res.status(200).json({ status: "success" })
             break;
         default:

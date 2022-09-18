@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const SubTopicSchema = new mongoose.Schema({
+const SubNotesSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -15,9 +15,13 @@ const SubTopicSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    topicId: {
+    hasPage: {
+        type: Boolean,
+        default: false,
+    },
+    notesId: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Topic',
+        ref: 'Notes',
         required: true,
     },
     createdBy: {
@@ -27,10 +31,10 @@ const SubTopicSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-SubTopicSchema.pre('save', async function (next) {
-    const subtopic = this;
-    subtopic.slug = subtopic.name.toLowerCase().split(" ").join("-")
+SubNotesSchema.pre('save', async function (next) {
+    const subNotes = this;
+    subNotes.slug = subNotes.name.toLowerCase().split(" ").join("-")
     next();
 });
 
-export default mongoose.models.SubTopic || mongoose.model('SubTopic', SubTopicSchema)
+export default mongoose.models.SubNotes || mongoose.model('SubNotes', SubNotesSchema)
