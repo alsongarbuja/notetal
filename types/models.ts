@@ -1,16 +1,20 @@
-export interface topicType {
+// interface for the notes model
+export interface notesType {
     _id: string,
     name: string,
     slug: string,
     description: string,
-    topicHeight: number
+    hasSubNotes: boolean,
+    userId: string,
 }
 
-export interface subTopicType {
+// interface for the subNotes model
+export interface subNotesType {
     _id: string,
     name: string,
     slug: string,
     description: string,
     userId: string,
-    topicId: string,
+    notesId: string,
+    hasPage: boolean,
 }
