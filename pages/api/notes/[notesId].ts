@@ -1,6 +1,6 @@
 import dbConnect from "../../../lib/server";
 import Express from "express";
-import Topic from "../../../models/Topic";
+import Notes from "../../../models/Notes";
 import mongoose from "mongoose";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
@@ -8,20 +8,20 @@ export default async function handler(req: Express.Request, res: Express.Respons
     
     await dbConnect();
     
-    const topicId = new mongoose.Types.ObjectId(query.topicId as string)                
-    const topic = await Topic.findById(topicId)
+    const notesId = new mongoose.Types.ObjectId(query.notesId as string)                
+    const note = await Notes.findById(notesId)
 
     switch (method) {
         case "GET":            
-            res.status(200).json({ status: "success", topic: topic })
+            res.status(200).json({ status: "success", note: note })
             break;
         case "PUT":
-            Object.assign(topic, req.body);
-            topic.save();
-            res.status(200).json({ status: "success", topic: topic })
+            Object.assign(note, req.body);
+            note.save();
+            res.status(200).json({ status: "success", note: note })
             break;
         case "DELETE":
-            topic.delete();
+            note.delete();
             res.status(200).json({ status: "success" })
             break;
         default:

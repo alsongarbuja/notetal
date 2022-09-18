@@ -1,54 +1,56 @@
 import React, { useState } from "react";
-import { CustomInput } from "../../../components/global/customfields";
+import { CustomInput, CustomSwitch } from "../../../components/global/customfields";
 import Form from "../../../layout/Form";
 
 const Create = () => {
-  const [topic, setTopic] = useState({
+  const [note, setNote] = useState({
     name: "",
     description: "",
-    topicHeight: 2,
+    hasSubNotes: false,
     createdBy: "62aff09d479e0682a353c90f"
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setTopic((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(e.target.name === "hasSubNotes") {
+      setNote(prev => ({ ...prev, hasSubNotes: !prev.hasSubNotes }));
+    }else{
+      setNote((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    }
+  }
 
 const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const data = await fetch("/api/topic", {
+    const data = await fetch("/api/notes", {
         method: "POST",
         mode: "cors",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(topic),
+        body: JSON.stringify(note),
     }).then(res => res.json()).catch(err => console.error(err))
 
     console.log(data);
 }
 
   return (
-    <Form title="Topic" handleSubmit={handleSubmit}>
+    <Form title="Notes" handleSubmit={handleSubmit}>
       <CustomInput
-        value={topic.name}
+        value={note.name}
         label="Name"
         name="name"
         onChange={handleChange}
-        placeholder="Name of topic, ex: Software Engineering, Git, etc"
+        placeholder="Name of note, ex: Software Engineering, Git, etc"
       />
-      <CustomInput
-        value={topic.topicHeight}
-        type="number"
-        label="Depth"
-        name="topicHeight"
+      <CustomSwitch
+        value={note.hasSubNotes}
+        label="Has Sub Notes"
+        name="hasSubNotes"
         onChange={handleChange}
-        min={2}
-        max={3}
-        placeholder="How deep is the topic: 2 or 3"
+        id="hasSubNotes"
       />
       <CustomInput
-        value={topic.description}
+        value={note.description}
         label="Description"
         name="description"
         onChange={handleChange}

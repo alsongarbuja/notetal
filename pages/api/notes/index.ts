@@ -1,7 +1,7 @@
 import dbConnect from "../../../lib/server";
 import Express from "express";
-import Topic from "../../../models/Topic";
-import { topicType } from "../../../types/models";
+import Notes from "../../../models/Notes";
+import { notesType } from "../../../types/models";
 import mongoose from "mongoose";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
@@ -11,24 +11,23 @@ export default async function handler(req: Express.Request, res: Express.Respons
 
     switch (method) {
         case "GET":
-            let topics: topicType[];
+            let notes: notesType[];
             if(query.createrId){
                 const cId = new mongoose.Types.ObjectId(query.createrId as string)
                 
-                topics = await Topic.find({ createdBy: cId })
-            }else if(query.height){
-                const height = query.height as unknown as number;
-
-                topics = await Topic.find({ topicHeight: height })
+                notes = await Notes.find({ createdBy: cId })
             }else{
-                topics = await Topic.find({})
+                notes = await Notes.find({})
             }
+
+            if(query.hasSubNotes)
+                notes = notes.filter(note => note.hasSubNotes)
             
-            res.status(200).json({ status: "success", topics: topics })
+            res.status(200).json({ status: "success", notes: notes })
             break;
         case "POST":
-            const topic = await Topic.create(req.body);
-            res.status(200).json({ status: "success", topic: topic })
+            const note = await Notes.create(req.body);
+            res.status(200).json({ status: "success", note: note })
             break;
         default:
             res.status(400).json({ status: "fail", message: "No such method found for this route "})
