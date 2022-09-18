@@ -64,7 +64,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
             />
             <ul className="h-full flex justify-between items-center flex-col md:flex-row gap-4">
               <li className="px-2 mr-4 cursor-pointer">
-                <a href="https://github.com/alson33/notetal" className="flex">
+                <a href="https://github.com/alsongarbuja/notetal" className="flex">
                   <GitHub />
                   <span className="ml-2 block md:hidden">Github</span>
                 </a>

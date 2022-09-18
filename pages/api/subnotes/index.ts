@@ -19,6 +19,10 @@ export default async function handler(req: Express.Request, res: Express.Respons
             }else{
                 subnotes = await SubNotes.find({})
             }
+
+            if(query.notesId){
+                subnotes = subnotes.filter((subnote) => subnote.notesId.toString() === query.notesId)
+            }
             
             res.status(200).json({ status: "success", subnotes: subnotes })
             break;
