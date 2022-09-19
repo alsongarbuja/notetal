@@ -37,6 +37,7 @@ export interface chapterType {
     description: string,
     hasLesson: boolean,
     userId: string,
+    noteId: string,
 }
 
 // interface for the lesson model
