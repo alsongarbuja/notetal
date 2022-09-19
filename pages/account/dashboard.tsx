@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { File, FileText, Folder, FolderPlus } from 'react-feather'
+import { File, FilePlus, FileText, Folder, FolderPlus } from 'react-feather'
 
 const Dashboard = () => {
   return (
@@ -43,7 +43,6 @@ const Dashboard = () => {
                     </span>
                 </Link>
             </div>
-            
             <div className="w-full sm:w-52 border px-5 py-4 rounded-md text-center border-indigo-400 bg-indigo-400/10 dark:text-indigo-200">
                 <h2>9</h2>
                 <h4 className="mb-3 flex gap-2 justify-center">
@@ -52,6 +51,17 @@ const Dashboard = () => {
                 <Link href="/account/chapters">
                     <span className="underline cursor-pointer hover:text-indigo-400">
                         See your chapters
+                    </span>
+                </Link>
+            </div>
+            <div className="w-full sm:w-52 border px-5 py-4 rounded-md text-center border-indigo-400 bg-indigo-400/10 dark:text-indigo-200">
+                <h2>12</h2>
+                <h4 className="mb-3 flex gap-2 justify-center">
+                    <FilePlus className="inline" /> Lessons
+                </h4>
+                <Link href="/account/lessons">
+                    <span className="underline cursor-pointer hover:text-indigo-400">
+                        See your lessons
                     </span>
                 </Link>
             </div>
