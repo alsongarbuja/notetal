@@ -28,3 +28,23 @@ export interface pageType {
     userId: string,
     subNotesId: string,
 }
+
+// interface for the chapter model
+export interface chapterType {
+    _id: string,
+    name: string,
+    slug: string,
+    description: string,
+    hasLesson: boolean,
+    userId: string,
+}
+
+// interface for the lesson model
+export interface lessonType {
+    _id: string,
+    name: string,
+    slug: string,
+    description: string,
+    chapterId: string,
+    userId: string,
+}
