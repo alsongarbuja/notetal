@@ -15,7 +15,7 @@ const Note = (props: { pages: pageType[] }) => {
       <div className="flex flex-wrap gap-4 my-6 justify-center">
         {
           props.pages?.map(page => (
-            <NoteBox key={page._id} title={page.name} href='/notes/test/1234' description={page.description} />
+            <NoteBox key={page._id} title={page.name} href='/read/test/1234' description={page.description} />
           ))
         }
       </div>

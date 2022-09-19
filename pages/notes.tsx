@@ -14,7 +14,7 @@ const Note = (props: { notes: notesType[] }) => {
       <div className="flex flex-wrap gap-4 my-6 justify-center">
         {
           props.notes?.map(note => (
-            <NoteBox key={note._id} title={note.name} href={note.hasSubNotes?`/subnotes?notesId=${note._id}`:`/notes/test/1234`} description={note.description} />
+            <NoteBox key={note._id} title={note.name} href={note.hasSubNotes?`/subnotes?notesId=${note._id}`:`/read/test/1234`} description={note.description} />
           ))
         }
       </div>
