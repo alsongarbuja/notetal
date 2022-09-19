@@ -19,6 +19,10 @@ const ChapterSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    noteId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
     createdBy: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'User',
