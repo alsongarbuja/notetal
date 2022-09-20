@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { CustomInput, CustomSwitch } from "../../../../components/global/customfields";
 import Form from "../../../../layout/Form";
 
+// TODO: Linking the related subnotes
 const EditNote = () => {
     const router = useRouter();
 

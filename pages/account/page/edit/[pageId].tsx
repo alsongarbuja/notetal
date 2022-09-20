@@ -4,6 +4,7 @@ import { CustomInput, CustomSelect, CustomSwitch } from "../../../../components/
 import { subNotesType } from "../../../../types/models";
 import Form from "../../../../layout/Form";
 
+// TODO: Linking the related chapters
 const EditPage = (props: { subnotes: { name: string, value: string }[] }) => {
     const router = useRouter();
 

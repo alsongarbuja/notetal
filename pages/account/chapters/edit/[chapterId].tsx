@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { CustomInput, CustomSelect, CustomSwitch } from "../../../../components/global/customfields";
 import Form from "../../../../layout/Form";
 
+// TODO: Linking the related lessons
 const Edit = (props: { notes: {name: string, value: string}[] }) => {
     const router = useRouter();
 

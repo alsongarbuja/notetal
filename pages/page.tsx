@@ -3,6 +3,7 @@ import Head from "next/head";
 import NoteBox from "../components/notes/NoteBox";
 import { pageType } from "../types/models";
 
+// TODO: fixing the note part
 const Note = (props: { pages: pageType[] }) => {
   return (
     <div className="py-5 min-h-screen">

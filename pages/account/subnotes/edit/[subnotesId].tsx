@@ -4,6 +4,7 @@ import { CustomInput, CustomSelect, CustomSwitch } from "../../../../components/
 import { notesType } from "../../../../types/models";
 import Form from "../../../../layout/Form";
 
+// TODO: Linking the related page
 const EditTopic = (props: { notes: { name: string, value: string }[] }) => {
     const router = useRouter();
 
@@ -87,6 +88,7 @@ const EditTopic = (props: { notes: { name: string, value: string }[] }) => {
   );
 };
 
+// TODO: rename component name
 export default EditTopic;
 
 export async function getServerSideProps(){

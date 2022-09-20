@@ -2,6 +2,7 @@ import Head from "next/head";
 import NoteBox from "../components/notes/NoteBox";
 import { notesType } from "../types/models";
 
+// TODO: Use of slug instead of ID
 const Note = (props: { notes: notesType[] }) => {
   return (
     <div className="py-5 min-h-screen">
