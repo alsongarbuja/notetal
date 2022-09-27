@@ -1,6 +1,7 @@
 import dbConnect from "../../../lib/server";
 import Express from "express";
 import User from "../../../models/User";
+import { jsonify } from "../../../helpers/backend/api/jsonify";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
     await dbConnect();
@@ -8,13 +9,13 @@ export default async function handler(req: Express.Request, res: Express.Respons
 
     const user = await User.findOne({ email }); 
     if(!user) {
-        res.status(400).json({ success: false, message: "Email not correct" });
+        res.status(400).json(jsonify({message: "Email not correct"}, false));
         return;
     }  
     if(!user?.isPasswordMatch(password)){
-        res.status(400).json({ success: false, message: "Password not correct" });        
+        res.status(400).json(jsonify({message: "Password not correct"}, false));        
         return;
     }
 
-    res.status(200).json({ user })
+    res.status(200).json(jsonify(user))
 }
