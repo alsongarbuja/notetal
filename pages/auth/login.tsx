@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import React, { useState } from "react";
 import { CustomInput } from "../../components/global/customfields";
+import { apiCaller, useFetch } from "../../helpers/api/fetcher";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -13,17 +14,13 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const data = await fetch("/api/auth/login", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    }).then(res => res.json()).catch((err) =>console.error(err))
+    const { response, errorMessage, status } = await apiCaller("/api/auth/login", "POST", user);
 
-    console.log(data);
+    console.log('status:', status);
     
+    console.log('error:', errorMessage);
+
+    console.log('response:', response);
   }
 
   return (
@@ -36,8 +33,26 @@ const Login = () => {
       <h3 className="text-center">Log In</h3>
       <div className="w-11/12 md:w-2/6 mx-auto my-5 p-6 rounded-md dark:bg-indigo-200/25 shadow-md">
         <form onSubmit={handleSubmit}>
-          <CustomInput name="email" value={user.email} placeholder="Email" onChange={handleChange} label="Email" type="email" />
-          <CustomInput name="password" value={user.password} placeholder="Password" onChange={handleChange} label="Password" type="password" />
+          <CustomInput 
+            name="email" 
+            value={user.email} 
+            placeholder="Email" 
+            onChange={handleChange} 
+            label="Email" 
+            type="email"
+            hasError={true}
+            errorMessage="Email is required" 
+          />
+          <CustomInput 
+            name="password" 
+            value={user.password} 
+            placeholder="Password" 
+            onChange={handleChange} 
+            label="Password" 
+            type="password"
+            hasError={false}
+            errorMessage= "Password is required"
+          />
           <button className="bg-indigo-400 text-white py-3 w-full mt-5">Log in</button>
         </form>
         <div className="flex justify-between text-center md:text-right flex-col md:flex-row my-5">

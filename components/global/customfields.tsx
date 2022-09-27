@@ -1,4 +1,5 @@
 import React, { ChangeEventHandler } from "react";
+import { AlertCircle } from "react-feather";
 
 export const CustomInput = ({
   label,
@@ -11,7 +12,9 @@ export const CustomInput = ({
   onChange,
   classes="col-span-1",
   min,
-  max
+  max,
+  hasError,
+  errorMessage,
 }: {
   label: string;
   type?: string;
@@ -24,6 +27,8 @@ export const CustomInput = ({
   classes?: string, 
   min?: number,
   max?: number,
+  hasError: boolean,
+  errorMessage: string,
 }) => {
   return (
     <div className={`mt-2 ${classes}`}>
@@ -42,8 +47,16 @@ export const CustomInput = ({
           required={isRequired}
           placeholder={placeholder}
           onChange={onChange}
-          className="text-black appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className={`
+            text-black 
+            appearance-none block w-full px-3 py-2 
+            ${hasError && "border-red-500 border-2"} 
+            rounded-md shadow-sm 
+            placeholder-gray-400 
+            focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 
+            sm:text-sm`}
         />
+        {hasError && <p className="text-red-600 flex gap-1 mt-1"><AlertCircle className="w-5 p-0" />{errorMessage}</p>}
       </div>
     </div>
   );
