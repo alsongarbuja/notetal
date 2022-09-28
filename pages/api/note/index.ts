@@ -5,6 +5,7 @@ import SubNotes from "../../../models/SubNotes";
 import Page from "../../../models/Page";
 import { notesType, subNotesType, pageType } from "../../../types/models";
 import mongoose from "mongoose";
+import { jsonify } from "../../../helpers/backend/api/jsonify";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
     const { method, query } = req;
@@ -20,14 +21,14 @@ export default async function handler(req: Express.Request, res: Express.Respons
             subnotes = await SubNotes.find({ createdBy: cId, hasPage: false })
             pages = await Page.find({ createdBy: cId })            
 
-            res.status(200).json({ status: "success", notes: [
+            res.status(200).json(jsonify({notes: [
                 ...notes,
                 ...subnotes,
                 ...pages
-            ] })
+            ]}))
             break;
         default:
-            res.status(400).json({ status: "fail", message: "No such method found for this route "})
+            res.status(400).json(jsonify({message: "No such method found for this route"}, false))
             break;
     }
 }

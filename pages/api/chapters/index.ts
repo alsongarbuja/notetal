@@ -3,6 +3,7 @@ import Express from "express";
 import Chapter from "../../../models/Chapter";
 import { chapterType } from "../../../types/models";
 import mongoose from "mongoose";
+import { jsonify } from "../../../helpers/backend/api/jsonify";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
     const { method, query } = req;
@@ -24,14 +25,14 @@ export default async function handler(req: Express.Request, res: Express.Respons
                 chapters = chapters.filter((chapter) => chapter.hasLesson)
             }
             
-            res.status(200).json({ status: "success", chapters: chapters })
+            res.status(200).json(jsonify(chapters))
             break;
         case "POST":
             const chapter = await Chapter.create(req.body);
-            res.status(200).json({ status: "success", chapter: chapter })
+            res.status(200).json(jsonify(chapter))
             break;
         default:
-            res.status(400).json({ status: "fail", message: "No such method found for this route "})
+            res.status(400).json(jsonify({message: "No such method found for this route"}, false))
             break;
     }
 }

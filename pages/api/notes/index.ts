@@ -3,6 +3,7 @@ import Express from "express";
 import Notes from "../../../models/Notes";
 import { notesType } from "../../../types/models";
 import mongoose from "mongoose";
+import { jsonify } from "../../../helpers/backend/api/jsonify";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
     const { method, query } = req;
@@ -23,14 +24,14 @@ export default async function handler(req: Express.Request, res: Express.Respons
             if(query.hasSubNotes)
                 notes = notes.filter(note => note.hasSubNotes)
             
-            res.status(200).json({ status: "success", notes: notes })
+            res.status(200).json(jsonify(notes))
             break;
         case "POST":
             const note = await Notes.create(req.body);
-            res.status(200).json({ status: "success", note: note })
+            res.status(200).json(jsonify(note));
             break;
         default:
-            res.status(400).json({ status: "fail", message: "No such method found for this route "})
+            res.status(400).json(jsonify({message: "No such method found for this route "}, false))
             break;
     }
 }

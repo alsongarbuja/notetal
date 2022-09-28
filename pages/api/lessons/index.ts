@@ -3,6 +3,7 @@ import Express from "express";
 import Lesson from "../../../models/Lesson";
 import { lessonType } from "../../../types/models";
 import mongoose from "mongoose";
+import { jsonify } from "../../../helpers/backend/api/jsonify";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
     const { method, query } = req;
@@ -20,14 +21,14 @@ export default async function handler(req: Express.Request, res: Express.Respons
                 lessons = await Lesson.find({})
             }
             
-            res.status(200).json({ status: "success", lessons: lessons })
+            res.status(200).json(jsonify(lessons))
             break;
         case "POST":
             const lesson = await Lesson.create(req.body);
-            res.status(200).json({ status: "success", lesson: lesson })
+            res.status(200).json(jsonify(lesson))
             break;
         default:
-            res.status(400).json({ status: "fail", message: "No such method found for this route "})
+            res.status(400).json(jsonify({message: "No such method found for this route"}, false))
             break;
     }
 }
