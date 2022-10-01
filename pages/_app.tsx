@@ -4,6 +4,7 @@ import 'tailwindcss/tailwind.css';
 import type { AppProps } from "next/app";
 import Layout from "../layout/Layout";
 import { useEffect } from 'react';
+import { ErrorProvider } from "../providers/ErrorProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -19,9 +20,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [])
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <ErrorProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ErrorProvider>
   );
 }
 
