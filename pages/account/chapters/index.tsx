@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Edit, Trash } from 'react-feather'
 import Badge from '../../../components/global/badge'
+import { serverPropHandler } from '../../../helpers/api/serverPropHandler'
 import List from '../../../layout/List'
 import { chapterType } from '../../../types/models'
 
@@ -56,12 +57,9 @@ const Index = (props: { chapters: chapterType[] }) => {
 export default Index
 
 export async function getServerSideProps(){
-    const res = await fetch(`http://localhost:3000/api/chapters?createrId=${process.env.TEST_USER_ID}`, { method: "GET" })
-    const data = await res.json()
+    const data = await serverPropHandler(`/chapters?createrId=${process.env.TEST_USER_ID}`, 'chapter')
 
     return {
-        props: {
-            chapters: data.chapters,
-        }
+        props: data,
     }
 }

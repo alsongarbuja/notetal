@@ -1,6 +1,6 @@
 import Head from "next/head";
 import NoteBox from "../components/notes/NoteBox";
-import { apiCaller } from "../helpers/api/fetcher";
+import { serverPropHandler } from "../helpers/api/serverPropHandler";
 import { notesType } from "../types/models";
 
 // TODO: Use of slug instead of ID
@@ -27,20 +27,9 @@ const Note = (props: { notes: notesType[] }) => {
 export default Note;
 
 export async function getServerSideProps() {
-  const { response, status, errorMessage } = await apiCaller("/notes", "GET");
+  const data = await serverPropHandler("/notes", "note");
   
-  if(status === 'error') {
-    return {
-      props: {
-        notes: [],
-        error: errorMessage,
-      }
-    }
-  }
-
   return {
-    props: {
-      notes: response,
-    }
+    props: data,
   }
 }

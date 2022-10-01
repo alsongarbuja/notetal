@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Edit, Trash } from 'react-feather'
+import { serverPropHandler } from '../../../helpers/api/serverPropHandler'
 import List from '../../../layout/List'
 import { lessonType } from '../../../types/models'
 
@@ -44,12 +45,9 @@ const Index = (props: { lessons: lessonType[] }) => {
 export default Index
 
 export async function getServerSideProps(){
-    const res = await fetch(`http://localhost:3000/api/lessons?creatorId=${process.env.TEST_USER_ID}`, { method: "GET" })
-    const data = await res.json()
+    const data = await serverPropHandler(`/lessons?creatorId=${process.env.TEST_USER_ID}`, 'lesson')
 
     return {
-        props: {
-            lessons: data.lessons,
-        }
+        props: data,
     }
 }

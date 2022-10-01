@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import NoteBox from "../components/notes/NoteBox";
-import { apiCaller } from "../helpers/api/fetcher";
+import { serverPropHandler } from "../helpers/api/serverPropHandler";
 import { subNotesType } from "../types/models";
 
 // TODO: Use of slug instead of ID
@@ -29,20 +29,9 @@ export default SubNotes;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 
-  const { response, status, errorMessage } = await apiCaller(`/subnotes?notesId=${context.query.notesId}`, "GET");
-  
-  if(status === 'error') {
-    return {
-      props: {
-        subnotes: [],
-        error: errorMessage,
-      }
-    }
-  }
-  
+  const data = await serverPropHandler(`/subnotes?notesId=${context.query.notesId}`, 'subnote');
+
   return {
-    props: {
-      subnotes: response,
-    }
+    props: data,
   }
 }

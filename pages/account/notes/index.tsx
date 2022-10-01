@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Edit, Trash } from 'react-feather'
 import Badge from '../../../components/global/badge'
+import { serverPropHandler } from '../../../helpers/api/serverPropHandler'
 import List from '../../../layout/List'
 import { notesType } from '../../../types/models'
 
@@ -56,12 +57,9 @@ const Index = (props: { notes: notesType[] }) => {
 export default Index
 
 export async function getServerSideProps(){
-    const res = await fetch(`http://localhost:3000/api/notes?createrId=${process.env.TEST_USER_ID}`, { method: "GET" })
-    const data = await res.json()
+    const data = await serverPropHandler(`/notes?createrId=${process.env.TEST_USER_ID}`, 'note')
 
     return {
-        props: {
-            notes: data.notes,
-        }
+        props: data,
     }
 }

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Edit, Trash } from 'react-feather'
+import { serverPropHandler } from '../../../helpers/api/serverPropHandler'
 import List from '../../../layout/List'
 import { pageType } from '../../../types/models'
 
@@ -7,7 +8,7 @@ const Index = (props: { pages: pageType[] }) => {
 
     const handleDelete = async (id: string) => {
         if(window.confirm("Are you sure you want to delete it?")){
-            const data = await fetch(`/api/page/${id}`, { method: "DELETE" }).then(res => res.json())
+            const data = await fetch(`/api/pages/${id}`, { method: "DELETE" }).then(res => res.json())
 
             if(data.status==='success'){
                 window.location.reload()
@@ -44,12 +45,10 @@ const Index = (props: { pages: pageType[] }) => {
 export default Index
 
 export async function getServerSideProps(){
-    const res = await fetch(`http://localhost:3000/api/page?createrId=${process.env.TEST_USER_ID}`, { method: "GET" })
-    const data = await res.json()
+
+    const data = await serverPropHandler(`/pages?createrId=${process.env.TEST_USER_ID}`, 'page')
 
     return {
-        props: {
-            pages: data.pages,
-        }
+        props: data
     }
 }

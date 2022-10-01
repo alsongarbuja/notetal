@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import NoteBox from "../components/notes/NoteBox";
-import { apiCaller } from "../helpers/api/fetcher";
+import { serverPropHandler } from "../helpers/api/serverPropHandler";
 import { pageType } from "../types/models";
 
 // TODO: fixing the note part
@@ -29,20 +29,9 @@ export default Note;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
 
-  const { response, status, errorMessage } = await apiCaller(`/pages?subNotesId=${context.query.subNotesId}`, "GET");
-
-  if(status === 'error') {
-    return {
-      props: {
-        pages: [],
-        error: errorMessage,
-      }
-    }
-  }
+  const data = await serverPropHandler(`/pages?subNotesId=${context.query.subNotesId}`, "page");
 
   return {
-    props: {
-      pages: response,
-    }
+    props: data,
   }
 }
