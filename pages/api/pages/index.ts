@@ -13,8 +13,8 @@ export default async function handler(req: Express.Request, res: Express.Respons
     switch (method) {
         case "GET":
             let pages: pageType[];
-            if(query.createrId){
-                const cId = new mongoose.Types.ObjectId(query.createrId as string)
+            if(query.creatorId){
+                const cId = new mongoose.Types.ObjectId(query.creatorId as string)
                 
                 pages = await Page.find({ createdBy: cId })
             }else{

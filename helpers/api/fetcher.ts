@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { dynamicObject, dynamicStringObject } from "../../types/custom";
 
 /**
  * 
@@ -44,24 +45,32 @@ export const useFetch = (endpoint: string, method: string, payload: object={})
 }
 
 export const apiCaller = async (endpoint: string, method: string, payload: object={})
-:Promise<{response: object, status: string, errorMessage: string}> => {
+    :Promise<{response: dynamicObject, status: string, errorMessage: dynamicStringObject}> => 
+{
     let status: string = 'success';
-    let response: object = {};
-    let errorMessage: string = '';
+    let response: dynamicObject = {};
+    let errorMessage: dynamicStringObject = {};
     
-    await fetch(endpoint, {
-        method,
+    let options: any= {
         mode: "cors",
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify(payload),
-    }).then(res => res.json()).then(data => {
+        method,
+    }
+
+    if(method === 'POST' || method === 'PUT'){
+        options = {
+            ...options,
+            body: JSON.stringify(payload),
+        }
+    }
+    
+    await fetch('http://localhost:3000/api'+endpoint, options).then(res => res.json()).then(data => {
         if(!data?.success){
             status = 'error';
-            if(data?.data?.message){
-                errorMessage = data.data.message;
+            if(data?.data){
+                errorMessage = data.data;
             }else{
                 errorMessage = data.message;
             }
@@ -75,3 +84,13 @@ export const apiCaller = async (endpoint: string, method: string, payload: objec
 
     return Promise.resolve({ response, status, errorMessage });
 }
+
+// {
+//     method,
+//     mode: "cors",
+//     headers: {
+//         'Content-Type': 'application/json',
+//         // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+//     },
+//     body: JSON.stringify(payload),
+// }
