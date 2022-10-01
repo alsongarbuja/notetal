@@ -9,11 +9,11 @@ export default async function handler(req: Express.Request, res: Express.Respons
 
     const user = await User.findOne({ email }); 
     if(!user) {
-        res.status(400).json(jsonify({message: "Email not correct"}, false));
+        res.status(400).json(jsonify({email: "Email not correct"}, false));
         return;
-    }  
-    if(!user?.isPasswordMatch(password)){
-        res.status(400).json(jsonify({message: "Password not correct"}, false));        
+    }
+    if(!(await user.isPasswordMatch(password))){
+        res.status(400).json(jsonify({password: "Password not correct"}, false));        
         return;
     }
 

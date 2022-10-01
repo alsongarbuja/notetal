@@ -2,25 +2,28 @@ import Head from "next/head";
 import Link from "next/link";
 import React, { useState } from "react";
 import { CustomInput } from "../../components/global/customfields";
-import { apiCaller, useFetch } from "../../helpers/api/fetcher";
+import { apiCaller } from "../../helpers/api/fetcher";
+import { useErrorContext } from "../../providers/ErrorProvider";
 
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   })
+  const [error, setError] = useErrorContext()
 
   const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => setUser(prev => ({...prev, [e.target.name]: e.target.value }))
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const { response, errorMessage, status } = await apiCaller("/api/auth/login", "POST", user);
+    const { response, errorMessage, status } = await apiCaller("/auth/login", "POST", user);
 
-    console.log('status:', status);
-    
-    console.log('error:', errorMessage);
-
-    console.log('response:', response);
+    if(status==='error'){
+      setError(errorMessage)
+    }else{
+      setError({})
+      console.log(response)
+    }
   }
 
   return (
@@ -40,8 +43,8 @@ const Login = () => {
             onChange={handleChange} 
             label="Email" 
             type="email"
-            hasError={true}
-            errorMessage="Email is required" 
+            hasError={error.hasOwnProperty('email')}
+            errorMessage={error.hasOwnProperty('email')?error.email:''} 
           />
           <CustomInput 
             name="password" 
@@ -50,8 +53,8 @@ const Login = () => {
             onChange={handleChange} 
             label="Password" 
             type="password"
-            hasError={false}
-            errorMessage= "Password is required"
+            hasError={error.hasOwnProperty('password')}
+            errorMessage={error.hasOwnProperty('password')?error.password:''}
           />
           <button className="bg-indigo-400 text-white py-3 w-full mt-5">Log in</button>
         </form>

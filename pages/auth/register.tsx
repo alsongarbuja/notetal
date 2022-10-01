@@ -2,6 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import { CustomInput } from "../../components/global/customfields";
+import { apiCaller } from "../../helpers/api/fetcher";
+import { useErrorContext } from "../../providers/ErrorProvider";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -10,28 +12,30 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   })
+  const [error, setError] = useErrorContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => setUser(prev => ({...prev, [e.target.name]: e.target.value }))
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if(user.password===user.confirmPassword){
-      const data = await fetch("/api/auth/register", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: user.name,
-          email: user.email,
-          password: user.password
-        }),
-      }).then(res => res.json()).catch((err) =>console.error(err))
-  
-      console.log(data);
+      const { response, status, errorMessage } = await apiCaller('/auth/register', "POST", {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      });
+      
+      if(status === 'error'){
+        console.log(errorMessage);
+        
+        setError(errorMessage)
+      }else{
+        setError({})
+        console.log(response);
+      }
+    }else{
+      setError({confirmPassword: "Password not match"})
     }
-    
   }
 
   return (
@@ -44,10 +48,46 @@ const Register = () => {
       <h3 className="text-center">Register</h3>
       <div className="w-11/12 md:w-2/6 mx-auto my-5 p-6 rounded-md dark:bg-indigo-200/25 shadow-md">
         <form onSubmit={handleSubmit}>
-          <CustomInput name="name" value={user.name} onChange={handleChange} placeholder="Full name" label="Username" />
-          <CustomInput name="email" value={user.email} onChange={handleChange} placeholder="Email" label="Email" type="email" />
-          <CustomInput name="password" value={user.password} onChange={handleChange} placeholder="Password" label="Password" type="password" />
-          <CustomInput name="confirmPassword" value={user.confirmPassword} onChange={handleChange} placeholder="Confirm Password" label="Confirm Password" type="password" />
+          <CustomInput 
+            name="name" 
+            value={user.name} 
+            onChange={handleChange} 
+            placeholder="Full name"
+            label="Username"
+            hasError={error.hasOwnProperty('name')}
+            errorMessage={error.hasOwnProperty('name')?error.name:''} 
+          />
+          <CustomInput 
+            name=
+            "email" 
+            value={user.email} 
+            onChange={handleChange} 
+            placeholder="Email" 
+            label="Email" 
+            type="email"
+            hasError={error.hasOwnProperty('email')}
+            errorMessage={error.hasOwnProperty('email')?error.email:''} 
+          />
+          <CustomInput 
+            name="password" 
+            value={user.password} 
+            onChange={handleChange} 
+            placeholder="Password" 
+            label="Password" 
+            type="password"
+            hasError={error.hasOwnProperty('password')}
+            errorMessage={error.hasOwnProperty('password')?error.password:''} 
+          />
+          <CustomInput 
+            name="confirmPassword" 
+            value={user.confirmPassword} 
+            onChange={handleChange} 
+            placeholder="Confirm Password"
+            label="Confirm Password"
+            type="password"
+            hasError={error.hasOwnProperty('confirmPassword')}
+            errorMessage={error.hasOwnProperty('confirmPassword')?error.confirmPassword:''} 
+          />
           <button className="bg-indigo-400 text-white py-3 w-full mt-5">Register</button>
         </form>
         <div className="flex justify-between text-center md:text-right flex-col md:flex-row my-5">
