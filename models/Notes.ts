@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
+import { checkSlug, createSlug } from "../helpers/backend/utils/slug";
 
 const NotesSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
         trim: true,
-        unique: true,
     },
     slug: {
         type: String,
@@ -26,9 +26,16 @@ const NotesSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-NotesSchema.pre('save', async function (next) {
+NotesSchema.pre('validate', async function (next) {
     const notes = this;
-    notes.slug = notes.name.toLowerCase().split(" ").join("-")
+    const slug = notes.name.toLowerCase().split(" ").join("-")
+    if(notes.slug && notes.slug !== slug){
+        if(await checkSlug('note', slug)){
+            notes.slug = createSlug(['note', 'chapter', 'lesson', 'subnotes', 'page', 'user']);
+        }else{
+            notes.slug = slug;
+        }
+    }
     next();
 });
 

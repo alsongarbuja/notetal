@@ -2,7 +2,7 @@ import dbConnect from "../../../lib/server";
 import Express from "express";
 import User from "../../../models/User";
 import { jsonify } from "../../../helpers/backend/api/jsonify";
-import { apiError } from "../../../helpers/backend/utils/apiError";
+import { apiError } from "../../../helpers/backend/api/apiError";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
     await dbConnect();

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { CustomInput, CustomSwitch } from "../../../components/global/customfields";
+import { apiCaller } from "../../../helpers/api/fetcher";
 import Form from "../../../layout/Form";
+import { useErrorContext } from "../../../providers/ErrorProvider";
 
 const Create = () => {
   const [note, setNote] = useState({
@@ -9,6 +11,7 @@ const Create = () => {
     hasSubNotes: false,
     createdBy: "62aff09d479e0682a353c90f"
   });
+  const [error, setError]= useErrorContext()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if(e.target.name === "hasSubNotes") {
@@ -21,16 +24,21 @@ const Create = () => {
 const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const data = await fetch("/api/notes", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(note),
-    }).then(res => res.json()).catch(err => console.error(err))
+    const { response, status, errorMessage } = await apiCaller('/notes', 'POST', note);
 
-    console.log(data);
+    if(status === 'error') {
+      setError(errorMessage)
+    }else{
+      console.log(response);
+      setError({})
+      setNote({
+        name: "",
+        description: "",
+        hasSubNotes: false,
+        createdBy: "62aff09d479e0682a353c90f"
+      })
+    }
+
 }
 
   return (
@@ -41,6 +49,8 @@ const handleSubmit = async (e: React.FormEvent) => {
         name="name"
         onChange={handleChange}
         placeholder="Name of note, ex: Software Engineering, Git, etc"
+        hasError={error.hasOwnProperty('name')}
+        errorMessage={error.hasOwnProperty('name')?error.name:''}
       />
       <CustomSwitch
         value={note.hasSubNotes}
@@ -55,6 +65,8 @@ const handleSubmit = async (e: React.FormEvent) => {
         name="description"
         onChange={handleChange}
         isRequired={false}
+        hasError={error.hasOwnProperty('description')}
+        errorMessage={error.hasOwnProperty('description')?error.description:''}
       />
     </Form>
   );

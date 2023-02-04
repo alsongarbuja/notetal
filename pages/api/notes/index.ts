@@ -4,6 +4,7 @@ import Notes from "../../../models/Notes";
 import { notesType } from "../../../types/models";
 import mongoose from "mongoose";
 import { jsonify } from "../../../helpers/backend/api/jsonify";
+import { apiError } from "../../../helpers/backend/api/apiError";
 
 export default async function handler(req: Express.Request, res: Express.Response) {
     const { method, query } = req;
@@ -27,8 +28,12 @@ export default async function handler(req: Express.Request, res: Express.Respons
             res.status(200).json(jsonify(notes))
             break;
         case "POST":
-            const note = await Notes.create(req.body);
-            res.status(200).json(jsonify(note));
+            await Notes.create(req.body)
+                .then(note => res.status(201).json(jsonify(note)))
+                .catch(err => {
+                    const error = apiError(err);
+                    res.status(400).json(jsonify(error, false));        
+                });
             break;
         default:
             res.status(400).json(jsonify({message: "No such method found for this route "}, false))
