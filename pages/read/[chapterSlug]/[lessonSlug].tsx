@@ -5,7 +5,7 @@ import { Menu, X } from "react-feather";
 
 const Note = () => {
     const router = useRouter();
-    const { chapter } = router.query;
+    const { chapterSlug } = router.query;
     const [openSideMenu, setOpenSideMenu] = useState(false)
     const [openTableOfContent, setOpenTableOfContent] = useState(false)
 
@@ -15,7 +15,7 @@ const Note = () => {
   return (
     <div className="grid grid-cols-12 gap-2">
       <Head>
-        <title>{chapter}</title>
+        <title>{chapterSlug}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`fixed bg-white dark:bg-gray-800 top-32 ${openSideMenu?'left-0':'-left-full'} lg:left-0 transition-left px-4 lg:relative lg:top-0 lg:col-span-3 lg:px-1 py-2 h-4/5 overflow-y-scroll`}>

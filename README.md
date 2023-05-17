@@ -20,6 +20,26 @@
 </ul>
 <br/>
 
+<h3>Get Started</h3>
+<hr/>
+
+- Fork the project
+- Clone the project
+```
+    git clone https://github.com/alson33/notetal
+```
+- Install packages
+```
+    npm install
+```
+- Start development server
+```
+    npm run dev
+```
+- Go to localhost: http://localhost:3000
+
+<br/>
+
 <h3>Contribute ✨</h3>
 <hr/>
 
