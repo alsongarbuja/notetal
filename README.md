@@ -1,22 +1,22 @@
 <h1 align="center">Notetal</h1>
 
 <p>
-    Portal to notes for students and teachers. With <b>Notetal</b> you can take notes as well as view notes taken by others.
+  Notetal is the easy to use open source note taking and reading application. With <b>Notetal</b> you can take notes as well as view notes taken by others.
 </p>
-<br/>
+<p>Checkout notetal live at: <a href="https://notetal.vercal.app">notetal.vercal.app</a></p>
 
 <h3>Features</h3>
 <hr/>
 <ul>
-    <li>
-        <b>Powerful Editor:</b> A powerful editor for taking notes even for mathematical equations.
-    </li>
-    <li>
-        <b>Everything note:</b> Get notes about everything and anything written by others.
-    </li>
-    <li>
-        <b>Mobile friendly UI:</b> View and take notes even from your smartphones.
-    </li>
+  <li>
+    <b>Powerful Editor:</b> A powerful editor for taking notes even for mathematical equations.
+  </li>
+  <li>
+    <b>Note for anything:</b> Get notes about everything and anything written by others.
+  </li>
+  <li>
+    <b>Mobile friendly UI:</b> View and take notes even from your smartphones easily.
+  </li>
 </ul>
 <br/>
 
@@ -26,15 +26,15 @@
 - Fork the project
 - Clone the project
 ```
-    git clone https://github.com/alson33/notetal
+  git clone https://github.com/alson33/notetal
 ```
 - Install packages
 ```
-    npm install
+  npm install
 ```
 - Start development server
 ```
-    npm run dev
+  npm run dev
 ```
 - Go to localhost: http://localhost:3000
 
@@ -44,25 +44,25 @@
 <hr/>
 
 <ul>
-    <li>
-        <b>Direct</b>
+  <li>
+    <b>Direct</b>
+    <ul>
+      <li>🔃 Fork the project</li>
+      <li>📝 Add, Commit and push</li>
+      <li>⛓ Create a pull request</li>
+    </ul>
+  </li>
+  <li>
+    <b>Indirect</b>
+    <ul>
+      <li>⭐ Star the project</li>
+      <li>👀 Watch the project if you are interested</li>
+      <li>🚩 Add issues if you found any</li>
         <ul>
-            <li>🔃 Fork the project</li>
-            <li>📝 Add, Commit and push</li>
-            <li>⛓ Create a pull request</li>
+          <li>🐛 Bug</li>
+          <li>🔖 Missing or new Features</li>
+          <li>🔥 UI</li>
         </ul>
-    </li>
-    <li>
-        <b>Indirect</b>
-        <ul>
-            <li>⭐ Star the project</li>
-            <li>👀 Watch the project if you are interested</li>
-            <li>🚩 Add issues if you found any</li>
-                <ul>
-                    <li>🐛 Bug</li>
-                    <li>🔖 Missing or new Features</li>
-                    <li>🔥 UI</li>
-                </ul>
-        </ul>
-    </li>
+    </ul>
+  </li>
 </u>
