@@ -1,5 +1,5 @@
-import Notes from '../../../lib/models/Notes';
-import { modalTypes } from '../../../lib/types/custom';
+import Notes from '%/models/Notes';
+import { modalTypes } from '%/types/custom';
 
 export const checkSlug = async (type: modalTypes, slug: string) => {
     let model;

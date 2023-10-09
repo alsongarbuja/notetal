@@ -5,8 +5,8 @@
  * @returns {object}
  */
 export const jsonify = (payload: object, status: boolean=true): object => {
-    return {
-        success: status,
-        data: payload,
-    }
+  return {
+    success: status,
+    data: payload,
+  }
 }

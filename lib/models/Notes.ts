@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { checkSlug, createSlug } from "../../helpers/backend/utils/slug";
+import { checkSlug, createSlug } from "%/helpers/backend/utils/slug";
 
 const NotesSchema = new mongoose.Schema({
     name: {
