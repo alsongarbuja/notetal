@@ -1,25 +1,21 @@
 "use client";
 
-import Head from "next/head";
 import Link from "next/link";
 import React, { useState } from "react";
-import { CustomInput } from "@/components/global/customfields";
 import { apiCaller } from "%/helpers/api/fetcher";
-import { useErrorContext } from "@/providers/ErrorProvider";
+import {Input, Button} from "@nextui-org/react";
+import { dynamicObject } from "%/types/custom";
 
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
   })
-  const [error, setError] = useErrorContext()
+  const [error, setError] = useState<dynamicObject>({})
 
-  const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => setUser(prev => ({...prev, [e.target.name]: e.target.value }))
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
     const { response, errorMessage, status } = await apiCaller("/auth/login", "POST", user);
-
     if(status==='error'){
       setError(errorMessage)
     }else{
@@ -30,46 +26,43 @@ const Login = () => {
 
   return (
     <div className="min-h-screen">
-      <Head>
-        <title>Notetal - login</title>
-        <meta name="description" content="Login in notetal to continue adding notes" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <h3 className="text-center">Log In</h3>
       <div className="w-11/12 p-6 mx-auto my-5 rounded-md shadow-md md:w-2/6 dark:bg-indigo-200/25">
-        <form onSubmit={handleSubmit}>
-          <CustomInput 
-            name="email" 
-            value={user.email} 
-            placeholder="Email" 
-            onChange={handleChange} 
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <Input 
+            isRequired 
+            type="email" 
             label="Email" 
-            type="email"
-            hasError={error.hasOwnProperty('email')}
-            errorMessage={error.hasOwnProperty('email')?error.email:''} 
+            variant="bordered" 
+            radius="sm"
+            isInvalid={error.hasOwnProperty('email')} 
+            errorMessage={error.hasOwnProperty('email')?error.email:''}
+            value={user.email} 
+            onValueChange={(v) => setUser(prev => ({...prev, email: v}))} 
           />
-          <CustomInput 
-            name="password" 
-            value={user.password} 
-            placeholder="Password" 
-            onChange={handleChange} 
+          <Input 
+            isRequired 
+            type="password" 
             label="Password" 
-            type="password"
-            hasError={error.hasOwnProperty('password')}
-            errorMessage={error.hasOwnProperty('password')?error.password:''}
+            variant="bordered" 
+            radius="sm"
+            isInvalid={error.hasOwnProperty('password')}
+            errorMessage={error.hasOwnProperty('password')?error.password:''} 
+            value={user.password} 
+            onValueChange={(v) => setUser(prev => ({...prev, password: v}))} 
           />
-          <button className="w-full py-3 mt-5 text-white bg-indigo-400">Log in</button>
+          <Button radius="none" className="text-white bg-indigo-400" type="submit">Log in</Button>
         </form>
         <div className="flex flex-col justify-between my-5 text-center md:text-right md:flex-row">
-            <span></span>
-            <div>
-                <p className="mb-2">
-                    Don&apos;t have account? <Link href="/auth/register"><span className="text-orange-500 underline cursor-pointer">Create one</span></Link>
-                </p>
-                <p>
-                    <Link href="/auth/login"><span className="text-orange-500 underline cursor-pointer">Forgot Password?</span></Link>
-                </p>
-            </div>
+          <span></span>
+          <div>
+            <p className="mb-2">
+              Don&apos;t have account? <Link href="/auth/register"><span className="text-orange-500 underline cursor-pointer">Create one</span></Link>
+            </p>
+            <p>
+              <Link href="/auth/login"><span className="text-orange-500 underline cursor-pointer">Forgot Password?</span></Link>
+            </p>
+          </div>
         </div>
         <p className="my-4 text-center">
           {/* <hr />  */}

@@ -1,18 +1,19 @@
+"use client"
 import Image from "next/image"
-import Link from "next/link"
+import { Button, Link } from "@nextui-org/react"
 
 export default function HomePage() {
   return (
     <>
       <article className="py-5">
         <section className='text-center my-11'>
-            <h1>Welcome to <span className="text-indigo-400">Notetal</span></h1>
-            <p>
-              Complete portal for all the notes you are ever looking for.
-            </p>
-            <Link href="/notes" className="w-64 px-5 py-2 mt-10 text-white bg-indigo-400 rounded-full">
-                Get Started
-            </Link>
+          <h1>Welcome to <span className="text-indigo-400">Notetal</span></h1>
+          <p>
+            Complete portal for all the notes you are ever looking for.
+          </p>
+          <Button color="primary" radius="full" className="mt-2" href="/notes" as={Link}>
+            Get Started
+          </Button>
         </section>
         <section className="my-10">
           <div className="flex flex-col items-center justify-between gap-4 my-5 md:flex-row">

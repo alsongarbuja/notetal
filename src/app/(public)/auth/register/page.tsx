@@ -1,11 +1,10 @@
 "use client";
 
-import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
-import { CustomInput } from "@/components/global/customfields";
 import { apiCaller } from "%/helpers/api/fetcher";
-import { useErrorContext } from "@/providers/ErrorProvider";
+import { dynamicObject } from "%/types/custom";
+import {Input, Button} from "@nextui-org/react";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -14,9 +13,8 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   })
-  const [error, setError] = useErrorContext();
+  const [error, setError] = useState<dynamicObject>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => setUser(prev => ({...prev, [e.target.name]: e.target.value }))
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -42,66 +40,65 @@ const Register = () => {
 
   return (
     <div className="min-h-screen">
-      <Head>
-        <title>Notetal - register</title>
-        <meta name="description" content="Register in notetal to add notes for everyone" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <h3 className="text-center">Register</h3>
       <div className="w-11/12 p-6 mx-auto my-5 rounded-md shadow-md md:w-2/6 dark:bg-indigo-200/25">
-        <form onSubmit={handleSubmit}>
-          <CustomInput 
-            name="name" 
-            value={user.name} 
-            onChange={handleChange} 
-            placeholder="Full name"
-            label="Username"
-            hasError={error.hasOwnProperty('name')}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <Input 
+            isRequired 
+            type="text" 
+            label="Username" 
+            variant="bordered" 
+            radius="sm"
+            isInvalid={error.hasOwnProperty('name')}
             errorMessage={error.hasOwnProperty('name')?error.name:''} 
+            value={user.name} 
+            onValueChange={(v) => setUser(prev => ({...prev, name: v}))} 
           />
-          <CustomInput 
-            name=
-            "email" 
-            value={user.email} 
-            onChange={handleChange} 
-            placeholder="Email" 
+          <Input 
+            isRequired 
+            type="email" 
             label="Email" 
-            type="email"
-            hasError={error.hasOwnProperty('email')}
+            variant="bordered" 
+            radius="sm"
+            isInvalid={error.hasOwnProperty('email')}
             errorMessage={error.hasOwnProperty('email')?error.email:''} 
+            value={user.email} 
+            onValueChange={(v) => setUser(prev => ({...prev, email: v}))} 
           />
-          <CustomInput 
-            name="password" 
-            value={user.password} 
-            onChange={handleChange} 
-            placeholder="Password" 
+          <Input 
+            isRequired 
+            type="password" 
             label="Password" 
-            type="password"
-            hasError={error.hasOwnProperty('password')}
+            variant="bordered" 
+            radius="sm"
+            isInvalid={error.hasOwnProperty('password')}
             errorMessage={error.hasOwnProperty('password')?error.password:''} 
+            value={user.password} 
+            onValueChange={(v) => setUser(prev => ({...prev, password: v}))} 
           />
-          <CustomInput 
-            name="confirmPassword" 
-            value={user.confirmPassword} 
-            onChange={handleChange} 
-            placeholder="Confirm Password"
-            label="Confirm Password"
-            type="password"
-            hasError={error.hasOwnProperty('confirmPassword')}
+          <Input 
+            isRequired 
+            type="password" 
+            label="ConfirmPassword" 
+            variant="bordered" 
+            radius="sm"
+            isInvalid={error.hasOwnProperty('confirmPassword')}
             errorMessage={error.hasOwnProperty('confirmPassword')?error.confirmPassword:''} 
+            value={user.confirmPassword} 
+            onValueChange={(v) => setUser(prev => ({...prev, confirmPassword: v}))} 
           />
-          <button className="w-full py-3 mt-5 text-white bg-indigo-400">Register</button>
+          <Button className="text-white bg-indigo-400" radius="none" type="submit">Register</Button>
         </form>
         <div className="flex flex-col justify-between my-5 text-center md:text-right md:flex-row">
-            <span></span>
-            <div>
-                <p className="mb-2">
-                    Have a account? <Link href="/auth/login"><span className="text-orange-500 underline cursor-pointer">Log in</span></Link>
-                </p>
-                <p>
-                    <Link href="/auth/login"><span className="text-orange-500 underline cursor-pointer">Forgot Password?</span></Link>
-                </p>
-            </div>
+          <span></span>
+          <div>
+            <p className="mb-2">
+              Have a account? <Link href="/auth/login"><span className="text-orange-500 underline cursor-pointer">Log in</span></Link>
+            </p>
+            <p>
+              <Link href="/auth/login"><span className="text-orange-500 underline cursor-pointer">Forgot Password?</span></Link>
+            </p>
+          </div>
         </div>
         <p className="my-4 text-center">
           {/* <hr />  */}
